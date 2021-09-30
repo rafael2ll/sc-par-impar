@@ -1,0 +1,37 @@
+{
+	"compiler": {
+		"version": "0.5.17+commit.d19bba13"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/SimpleCommit.sol": "SimpleCommit"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/SimpleCommit.sol": {
+			"keccak256": "0x6520361a108721dc87fd6d21577dcd10c1e86f508fec2fc1d972b4a204fc241e",
+			"urls": [
+				"bzz-raw://07af404fd37f7c7678dc5a2c13c79b7696f6f2980d8f789cb2e7730926192a9b",
+				"dweb:/ipfs/QmXHvbKDXP7Gszb2w3LZqXKwy6iFtSyYp98d9D6wczHayQ"
+			]
+		}
+	},
+	"version": 1
+}

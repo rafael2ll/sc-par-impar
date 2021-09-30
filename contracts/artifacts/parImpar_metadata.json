@@ -1,0 +1,92 @@
+{
+	"compiler": {
+		"version": "0.5.17+commit.d19bba13"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_vD",
+						"type": "bytes32"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "nonce1",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes1",
+						"name": "_v1",
+						"type": "bytes1"
+					}
+				],
+				"name": "donoRevela",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "_vJ",
+						"type": "bytes32"
+					}
+				],
+				"name": "entraJogo",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/ParImpar.sol": "parImpar"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/ParImpar.sol": {
+			"keccak256": "0xd27d9eb278d351f7b7824c3d76f5aa86087cfc5d8b46411cdecbb0e1395188a1",
+			"urls": [
+				"bzz-raw://f1fc3111deaccb6e203b98ef63263da6902eab299293452f1a2342edb856586c",
+				"dweb:/ipfs/QmTHfKi9h8565csgAoSFX21Rjj5LrazMLDAG4KfasdJhZF"
+			]
+		},
+		"contracts/SimpleCommit.sol": {
+			"keccak256": "0x6520361a108721dc87fd6d21577dcd10c1e86f508fec2fc1d972b4a204fc241e",
+			"urls": [
+				"bzz-raw://07af404fd37f7c7678dc5a2c13c79b7696f6f2980d8f789cb2e7730926192a9b",
+				"dweb:/ipfs/QmXHvbKDXP7Gszb2w3LZqXKwy6iFtSyYp98d9D6wczHayQ"
+			]
+		}
+	},
+	"version": 1
+}
