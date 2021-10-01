@@ -13,8 +13,8 @@
 						"type": "bytes32"
 					}
 				],
-				"payable": false,
-				"stateMutability": "nonpayable",
+				"payable": true,
+				"stateMutability": "payable",
 				"type": "constructor"
 			},
 			{
@@ -28,8 +28,8 @@
 				],
 				"name": "entraJogo",
 				"outputs": [],
-				"payable": false,
-				"stateMutability": "nonpayable",
+				"payable": true,
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -56,7 +56,13 @@
 				"constant": false,
 				"inputs": [],
 				"name": "payWinner",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
 				"payable": false,
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -79,6 +85,21 @@
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "whoWon",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -103,17 +124,17 @@
 	},
 	"sources": {
 		"contracts/ParImpar.sol": {
-			"keccak256": "0x4b196fb7eccf4ab28f7256518f3f140a55d9a05decad0446497c39ec45031625",
+			"keccak256": "0x04b89ac7c4c6e8f3549a7e01438f8413a52cb2e0a9c9d6bfbcc8c637a04b2b57",
 			"urls": [
-				"bzz-raw://503a3f4c68870c9a838246cb2e859d6d9ac8466f7eb4ef8c05da14d2d381b049",
-				"dweb:/ipfs/QmZ2npC8h7MbqiQf6P29NyDeH2gSPWhwgBG8pZ7Tg8yzrk"
+				"bzz-raw://827b6e6948255367a51fa98ca5569e609e606b51b25b93e3fc363f510fdbcb17",
+				"dweb:/ipfs/QmXEd94P7HEDMA5oj5cRqYFTy7oXvhFQzhE2KrimoYLnzR"
 			]
 		},
 		"contracts/SimpleCommit.sol": {
-			"keccak256": "0x6520361a108721dc87fd6d21577dcd10c1e86f508fec2fc1d972b4a204fc241e",
+			"keccak256": "0x6eec769067cccbe6d80ee7d55894fc93c68140e1faf3d498ca6ecfe6a50d76c5",
 			"urls": [
-				"bzz-raw://07af404fd37f7c7678dc5a2c13c79b7696f6f2980d8f789cb2e7730926192a9b",
-				"dweb:/ipfs/QmXHvbKDXP7Gszb2w3LZqXKwy6iFtSyYp98d9D6wczHayQ"
+				"bzz-raw://dc898b9fceaeebccb35daea36dee24581ba49cd6485e4618292744ef1528bf40",
+				"dweb:/ipfs/Qmbe5UZdu7j62BtNBAAgzBrHFouct3jPYk9ScbZdfyyKY8"
 			]
 		}
 	},

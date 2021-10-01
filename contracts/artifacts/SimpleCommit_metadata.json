@@ -26,10 +26,10 @@
 	},
 	"sources": {
 		"contracts/SimpleCommit.sol": {
-			"keccak256": "0x6520361a108721dc87fd6d21577dcd10c1e86f508fec2fc1d972b4a204fc241e",
+			"keccak256": "0x6eec769067cccbe6d80ee7d55894fc93c68140e1faf3d498ca6ecfe6a50d76c5",
 			"urls": [
-				"bzz-raw://07af404fd37f7c7678dc5a2c13c79b7696f6f2980d8f789cb2e7730926192a9b",
-				"dweb:/ipfs/QmXHvbKDXP7Gszb2w3LZqXKwy6iFtSyYp98d9D6wczHayQ"
+				"bzz-raw://dc898b9fceaeebccb35daea36dee24581ba49cd6485e4618292744ef1528bf40",
+				"dweb:/ipfs/Qmbe5UZdu7j62BtNBAAgzBrHFouct3jPYk9ScbZdfyyKY8"
 			]
 		}
 	},

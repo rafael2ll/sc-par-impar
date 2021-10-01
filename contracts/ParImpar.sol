@@ -14,6 +14,7 @@ using SimpleCommit for SimpleCommit.CommitType;
 // Estados: aguardaJogador, revelaValores12, revelado, Fim....
 
 enum State{START, WAITING_PLAYER, READY_TO_DISCLOSE, OWNER_VALUE_DISCLOSED, PLAYER_VALUE_DISCLOSED, VALUES_DISCLOSED, END}
+enum Result  {OWNER_WON, PLAYER_WON, DRAW}
 
 SimpleCommit.CommitType valorDono;
 SimpleCommit.CommitType valorJogador;
@@ -35,15 +36,11 @@ State state = State.START;
 
 bool ownerDisclosed = false;
 bool playerDisclosed = false;
+Result result = Result.DRAW;
 
-function setValorAposta() internal{
-    valorAposta = msg.value;
-}
-
-
-constructor (bytes32 _vD) public {
+constructor (bytes32 _vD) public payable{
     valorDono.commit(_vD);
-    setValorAposta();
+    valorAposta = msg.value;
     limiteBloco = block.number + 10; //????
     dono =msg.sender;
     state = State.WAITING_PLAYER;
@@ -51,17 +48,13 @@ constructor (bytes32 _vD) public {
 
  
 
-function requireLessValue() internal{
-    require ( msg.value >= valorAposta,"Valor maior do que o da aposta");
-}
-
-
 modifier onlyOwner {require (msg.sender == dono,"Somento o dono pode chamar esta funcao!");_;}
 modifier onlyPlayer {require (msg.sender == jogador,"Somento o jogador pode chamar esta funcao!");_;}
-modifier capValue {requireLessValue();_;}
 
-function entraJogo(bytes32 _vJ) public capValue {
+function entraJogo(bytes32 _vJ) public payable{
+    
     require(state == State.WAITING_PLAYER, "O jogo já possui um jogador");
+    require (msg.value <= valorAposta, string(abi.encodePacked("Valor maior do que o da aposta: ", uint2str(msg.value), ". Limite: ", uint2str(valorAposta))));
     
     valorJogador.commit(_vJ);
     jogador = msg.sender;
@@ -73,9 +66,8 @@ function entraJogo(bytes32 _vJ) public capValue {
 
 function ownerReveal(bytes32 nonce1, byte _v1) public onlyOwner {
   require(state == State.READY_TO_DISCLOSE || (state == State.PLAYER_VALUE_DISCLOSED && !ownerDisclosed), "Seu valor não pode ser revelado");
-  
   valorDono.reveal(nonce1,_v1);
-  //ok = sc1.isCorrect();
+  ownerDisclosed = true;
   state = state == State.READY_TO_DISCLOSE ? State.OWNER_VALUE_DISCLOSED : State.VALUES_DISCLOSED;
 }
 
@@ -83,72 +75,92 @@ function ownerReveal(bytes32 nonce1, byte _v1) public onlyOwner {
 
 function playerReveal(bytes32 nonce1, byte _v1) public onlyPlayer {
   require(state == State.READY_TO_DISCLOSE || (state == State.OWNER_VALUE_DISCLOSED && !playerDisclosed), "Seu valor não pode ser revelado");
-  
   valorJogador.reveal(nonce1,_v1);
-  //ok = sc1.isCorrect();
+  playerDisclosed = true;
   state = state == State.READY_TO_DISCLOSE ? State.PLAYER_VALUE_DISCLOSED : State.VALUES_DISCLOSED;
 }
 
  
  
- function payOwner() internal pure{
-     require(false, "Dono foi o vencedor");
+ function payOwner() internal returns (string memory) {
+     result = Result.OWNER_WON;
+     return "Dono foi o vencedor";
  }
  
- function payPlayer() internal pure{
-     require(false, "Jogador foi o vencedor");
+ function payPlayer() internal returns (string memory){
+     result = Result.PLAYER_WON;
+     return "Jogador Visitante foi o vencedor";
  }
  
- function repay() internal pure{
-     require(false, "Dinheiro devolvido");
+ function repay() internal pure returns (string memory){
+     return "Dinheiro devolvido";
      
  }
  
-function handleLimit() private view{
+ 
+function handleLimit() private returns (string memory){
     if(state == State.VALUES_DISCLOSED){
-        int8 bit = int8(valorDono.value ^ valorJogador.value) % 2 ** 1;
+        int8 bit = int8(valorDono.getValue() ^ valorJogador.getValue()) % 2 ** 1;
         if(bytes1(bit) == 0){
-            payOwner();
+            return payOwner();
         }else{
-            payPlayer();
+            return payPlayer();
         }
     }else{
         if(state == State.PLAYER_VALUE_DISCLOSED)
-            payPlayer();
+            return payPlayer();
         else if(state == State.OWNER_VALUE_DISCLOSED)
-            payOwner();
+            return payOwner();
         else
-            repay();
+            return repay();
     }    
 }
 
-function payWinner() public {
-   if(block.number > limiteBloco)
-        handleLimit();
-    else if(state == State.VALUES_DISCLOSED){
-        int8 bit = int8(valorDono.value ^ valorJogador.value) % 2 ** 1;
-        if(bytes1(bit) == 0){
-            payOwner();
-        }else{
-            payPlayer();
-        }
-    }else{
-        require(false, "O jogo não pode ser finalizado");
-    }
+
+function whoWon() public view returns (string memory){
+    require(state == State.END, "O jogo ainda não foi finalizado");
+    return result == Result.OWNER_WON ? "O dono do contrato foi o vencedor!" : result == Result.PLAYER_WON ? "O jogador visitante foi o vencedor!" : "Empate!";
+}
+
+function payWinner() public returns (string memory){
+   require(state != State.END, "O jogo foi finalizado");
+   
+   if(block.number > limiteBloco){
+        string memory message = handleLimit();
+        state = State.END;
+        return message;
+   }
+   
+    require(state == State.VALUES_DISCLOSED, "O jogo não pode ser finalizado");
     state = State.END;
+
+    int8 bit = int8(valorDono.getValue() ^ valorJogador.getValue()) % 2 ** 1;
+    
+    if(bytes1(bit) == 0) 
+        return payOwner();
+    return payPlayer();
     
 }
 
-// function pagaVencedor() public {
-// Quem é o vencedor???
-// *** verificar bloco limite ***
-// Se bloco passou o limite e ninguem revelou ???
-// Se o jogador revelou corretamente e o dono nao: jagador ganha e é pagaVencedor
-// Se dono......
-
- 
-
-// Se ambos revelaram junte o valor com valorDono.getValue() e valorJoador.getValue() e determine o vencedor
-  
-//}
+function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint j = _i;
+        uint len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint k = len;
+        while (_i != 0) {
+            k = k-1;
+            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
+    }
 }

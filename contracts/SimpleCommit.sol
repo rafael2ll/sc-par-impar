@@ -24,6 +24,7 @@ library SimpleCommit {
     require (c.myState == CommitStatesType.Waiting);
     bytes32 ver = sha256(abi.encodePacked(nonce,v));
     c.myState = CommitStatesType.Revealed;
+    require(ver == c.commited, "Reveal não verified");
     if (ver==c.commited) {
       c.verified = true;
       c.value =v;
@@ -36,8 +37,8 @@ library SimpleCommit {
   }
 
   function getValue(CommitType storage c) public view returns(byte) {
-    require (c.myState == CommitStatesType.Revealed);
-    require (c.verified==true);
+    require (c.myState == CommitStatesType.Revealed, "Commit não revelado");
+    require (c.verified==true, "Valor não verificado");
     return c.value;
   }
 
