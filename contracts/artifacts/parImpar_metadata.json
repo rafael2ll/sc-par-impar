@@ -22,16 +22,11 @@
 				"inputs": [
 					{
 						"internalType": "bytes32",
-						"name": "nonce1",
+						"name": "_vJ",
 						"type": "bytes32"
-					},
-					{
-						"internalType": "bytes1",
-						"name": "_v1",
-						"type": "bytes1"
 					}
 				],
-				"name": "donoRevela",
+				"name": "entraJogo",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -42,11 +37,45 @@
 				"inputs": [
 					{
 						"internalType": "bytes32",
-						"name": "_vJ",
+						"name": "nonce1",
 						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes1",
+						"name": "_v1",
+						"type": "bytes1"
 					}
 				],
-				"name": "entraJogo",
+				"name": "ownerReveal",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [],
+				"name": "payWinner",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "nonce1",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "bytes1",
+						"name": "_v1",
+						"type": "bytes1"
+					}
+				],
+				"name": "playerReveal",
 				"outputs": [],
 				"payable": false,
 				"stateMutability": "nonpayable",
@@ -74,10 +103,10 @@
 	},
 	"sources": {
 		"contracts/ParImpar.sol": {
-			"keccak256": "0xd27d9eb278d351f7b7824c3d76f5aa86087cfc5d8b46411cdecbb0e1395188a1",
+			"keccak256": "0x4b196fb7eccf4ab28f7256518f3f140a55d9a05decad0446497c39ec45031625",
 			"urls": [
-				"bzz-raw://f1fc3111deaccb6e203b98ef63263da6902eab299293452f1a2342edb856586c",
-				"dweb:/ipfs/QmTHfKi9h8565csgAoSFX21Rjj5LrazMLDAG4KfasdJhZF"
+				"bzz-raw://503a3f4c68870c9a838246cb2e859d6d9ac8466f7eb4ef8c05da14d2d381b049",
+				"dweb:/ipfs/QmZ2npC8h7MbqiQf6P29NyDeH2gSPWhwgBG8pZ7Tg8yzrk"
 			]
 		},
 		"contracts/SimpleCommit.sol": {
